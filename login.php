@@ -1,5 +1,6 @@
 <?php
 //oi jota//
+//Oi Amoreco
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -98,3 +99,4 @@
 </body>
 
 </html>
+
