@@ -1,13 +1,25 @@
 <?php
-$servername = "cadastro_db";
-$username = "seu_usuario";
-$password = "sua_senha";
 
-$conn = new mysqli($servername, $username, $password);
+require_once 'config.php';
 
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
+class Conexao {
+    private static $conexao;
+
+    public static function getConexao() {
+       
+        if (!isset(self::$conexao)) {
+            self::$conexao = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+            
+            if (self::$conexao->connect_error) {
+                die("Erro na conexão com o banco de dados: " . self::$conexao->connect_error);
+            }
+
+           
+            self::$conexao->set_charset("utf8");
+        }
+
+        return self::$conexao;
+    }
 }
-
-
-$sql = "CREATE DATABASE cadastro_db";
+?>
