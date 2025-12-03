@@ -8,7 +8,7 @@ session_start();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Adote um Amigo — Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>

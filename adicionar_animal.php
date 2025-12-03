@@ -12,39 +12,50 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nome = $_POST['nome'];
     $especie = $_POST['especie'];
     $sexo = $_POST['sexo'];
-    $data_nascimento = $_POST['data_nascimento'] ?? null;
+    $data_nascimento = $_POST['data_nascimento'] ?: null;
     $porte = $_POST['porte'];
     $raca = $_POST['raca'];
     $descricao = $_POST['descricao'];
     $status_adocao = $_POST['status_adocao'];
     $cidade = $_POST['cidade'];
     $estado = strtoupper($_POST['estado']);
-    $id_ong = $_SESSION['id_usuario']; 
-
-    // pra guadar a imagem do cachorro
+    $id_ong = $_SESSION['id_usuario'];
 
     $foto_caminho = null;
+
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
-     
-      $pasta = "../uploads/";
-if (!is_dir($pasta)) mkdir($pasta, 0777, true);
 
-$nome_arquivo = uniqid() . "_" . basename($_FILES['foto']['name']);
-$caminho_arquivo = $pasta . $nome_arquivo;
+        $permitidos = ['image/jpeg', 'image/png', 'image/webp'];
+        $tipoArquivo = mime_content_type($_FILES['foto']['tmp_name']);
 
-if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_arquivo)) {
-    $foto_caminho = "../" . $nome_arquivo; // salva no banco
-}
+        if (!in_array($tipoArquivo, $permitidos)) {
+            echo "<script>alert('Formato inválido! Envie JPG, PNG ou WEBP.'); window.history.back();</script>";
+            exit;
+        }
 
+        if ($_FILES['foto']['size'] > 4 * 1024 * 1024) {
+            echo "<script>alert('Imagem muito grande! Máximo 4MB.'); window.history.back();</script>";
+            exit;
+        }
 
+        $pasta = "../uploads/";
+        if (!is_dir($pasta)) mkdir($pasta, 0777, true);
+
+        $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $nome_arquivo = uniqid("img_", true) . "." . strtolower($extensao);
+        $caminho_arquivo = $pasta . $nome_arquivo;
+
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_arquivo)) {
+            $foto_caminho = "uploads/" . $nome_arquivo;
+        }
     }
 
-    $sql = "INSERT INTO ANIMAL 
+    $sql = "INSERT INTO ANIMAL
         (nome, especie, sexo, data_nascimento, porte, raca, descricao, status_adocao, cidade, estado, id_ong_abrigo, foto)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssis",
+    $stmt->bind_param("ssssssssssss",
         $nome, $especie, $sexo, $data_nascimento, $porte, $raca,
         $descricao, $status_adocao, $cidade, $estado, $id_ong, $foto_caminho
     );
@@ -54,8 +65,6 @@ if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_arquivo)) {
     } else {
         echo "<script>alert('Erro ao cadastrar o animal.');</script>";
     }
-   
-
 }
 ?>
 
@@ -107,8 +116,7 @@ if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_arquivo)) {
     <label for="status_adocao">Status de adoção *</label>
     <select id="status_adocao" name="status_adocao" required>
       <option value="Disponível" selected>Disponível</option>
-      <option value="Reservado">Reservado</option>
-      <option value="Adotado">Adotado</option>
+    
     </select>
 
     <label for="cidade">Cidade *</label>

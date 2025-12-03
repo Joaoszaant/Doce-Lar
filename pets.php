@@ -1,5 +1,6 @@
 <?php 
 require_once '../CORE/conexao.php'; 
+include 'barra.php';
 $conn = Conexao::getConexao(); 
 
 $estados_res = $conn->query("SELECT DISTINCT estado FROM ANIMAL WHERE estado IS NOT NULL AND estado <> '' ORDER BY estado");
