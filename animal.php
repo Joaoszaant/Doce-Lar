@@ -3,7 +3,6 @@ require_once '../CORE/conexao.php';
 
 class AnimalDAO {
     private $conn;
-//inicia
     public function __construct() {
         $this->conn = Conexao::getConexao();
     }
@@ -12,7 +11,7 @@ class AnimalDAO {
      * Cadastra um novo animal
      * 
      * @param string $nome 
-     * @param string $especie Espécie
+     * @param string $especie
      * @param string $sexo 
      * @param string $data_nascimento 
      * @param string $porte 
@@ -20,7 +19,7 @@ class AnimalDAO {
      * @param string $descricao 
      * @param string $cidade 
      * @param string $estado
-     * @param int $id_ong_abrigo ID do USUARIO (ONG)
+     * @param int $id_ong_abrigo 
      * @return bool 
      */
     public function cadastrarAnimal(string $nome, string $especie, string $sexo, string $data_nascimento, string $porte, string $raca, string $descricao, string $cidade, string $estado, int $id_ong_abrigo): bool {
