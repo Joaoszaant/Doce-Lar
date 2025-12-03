@@ -65,7 +65,7 @@ if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminho_arquivo)) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cadastrar Animal — Adote um Amigo</title>
-  <link rel="stylesheet" href="adicionar_aimal.css">
+  <link rel="stylesheet" href="css/adicionar_aimal.css">
 </head>
 <body>
   <h1>Cadastro de Animal</h1>

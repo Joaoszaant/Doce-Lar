@@ -8,8 +8,9 @@
 </head>
 <body>
   <div class="auth-container">
-    <h1 class="logo">🐾 Doce Lar</h1>
-    <div class="form-card">
+<img src="../uploads/docelar.png" alt="DoceLar" class="logo">
+
+<div class="form-card">
       <h2>Cadastro</h2>
 
       <form method="post" action="../MODEL/processa_cadastro.php">

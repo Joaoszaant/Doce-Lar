@@ -1,76 +1,21 @@
 <?php
-session_start();
+include 'barra.php';
 ?>
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Adote um Amigo — Home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adote um Amigo</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="nav-left">
-      <a class="logo" href="/"> 
-        <img src="https://via.placeholder.com/44x44.png?text=🐶" alt="Logo Adote" />
-        <span>Adote um Amigo</span>
-      </a>
-    </div>
 
-    <nav class="nav-links">
-      <a href="pets.php" class="nav-item">Encontrar pets</a>
-      <a href="#about" class="nav-item">Sobre</a>
-    </nav>
-
-    <a href="confirmar_usuario.php" class="botao-adicionar">Adicionar Animal</a>
-
-    <div class="nav-right" id="nav-right">
-      <?php if (isset($_SESSION['id_usuario'])): ?>
-        <div class="user-area" style="display:flex; align-items:center; gap:10px;">
-          <?php
-            $nome = $_SESSION['nome'] ?? '';
-            $parts = explode(' ', trim($nome));
-            $initials = '';
-            foreach ($parts as $p) {
-              if ($p !== '') $initials .= mb_substr($p, 0, 1);
-            }
-            $initials = mb_strtoupper(mb_substr($initials, 0, 2));
-          ?>
-          <button id="avatar-btn" class="avatar-sm" aria-expanded="false"><?php echo htmlspecialchars($initials); ?></button>
-          <span class="user-name" id="user-name"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
-        </div>
-      <?php else: ?>
-        <a href="login.php" class="btn btn-ghost" id="btn-login">Entrar</a>
-        <a href="cadastro.php" class="btn btn-primary" id="btn-signup">Cadastrar</a>
-      <?php endif; ?>
-    </div>
-  </header>
-
-  <div id="profile-float" class="profile-float hidden" aria-hidden="true">
-    <div class="profile-card">
-      <div class="profile-header">
-        <div class="avatar-large" id="pf-avatar"><?php echo isset($_SESSION['nome']) ? htmlspecialchars($initials) : 'JP'; ?></div>
-        <div>
-          <strong id="pf-name"><?php echo isset($_SESSION['nome']) ? htmlspecialchars($_SESSION['nome']) : 'João'; ?></strong>
-          <div id="pf-email" class="muted"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'joao@email.com'; ?></div>
-        </div>
-      </div>
-      <div class="profile-body">
-        <p><strong>Telefone</strong><br><small id="pf-telefone"><?php echo isset($_SESSION['telefone']) ? htmlspecialchars($_SESSION['telefone']) : '—'; ?></small></p>
-        <div class="profile-actions">
-          <a href="meu-perfil.html" class="btn btn-ghost small">Meu Perfil</a>
-          <form method="post" action="logout.php" style="display:inline;">
-            <button id="btn-logout" class="btn btn-danger small" type="submit">Sair</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- CAROUSEL -->
   <section class="carousel" aria-roledescription="carousel" id="main-carousel">
     <div class="slides">
-      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1400&q=60');">
+
+      <div class="slide active" style="background-image: url('../uploads/dog1.jpeg');">
         <div class="slide-caption">
           <h2>Encontre seu novo amigo</h2>
           <p>Temos cães de todas as idades esperando por um lar.</p>
@@ -78,7 +23,7 @@ session_start();
         </div>
       </div>
 
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=1400&q=60');">
+      <div class="slide" style="background-image: url('../uploads/dog2.jpeg');">
         <div class="slide-caption">
           <h2>Cuidado e carinho</h2>
           <p>Cada cão recebe atenção, vacinas e avaliação antes da adoção.</p>
@@ -86,13 +31,14 @@ session_start();
         </div>
       </div>
 
-      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1537151625747-768eb6cf92b8?auto=format&fit=crop&w=1400&q=60');">
+      <div class="slide" style="background-image: url('../uploads/dog3.jpeg');">
         <div class="slide-caption">
           <h2>Adotar transforma vidas</h2>
           <p>Adotar é amor que vira rotina e alegria em dobro.</p>
           <a href="pets.php" class="btn btn-light">Adote já</a>
         </div>
       </div>
+
     </div>
 
     <button class="carousel-btn prev" id="carousel-prev" aria-label="Anterior">&#10094;</button>
@@ -101,12 +47,14 @@ session_start();
     <div class="carousel-indicators" id="carousel-indicators"></div>
   </section>
 
+
+  <!-- POR QUE ADOTAR -->
   <section class="why-adopt" aria-labelledby="why-title">
     <h2 id="why-title">Por que adotar?</h2>
     <div class="cards">
       <article class="card">
         <div class="card-ill">
-          <img src="https://images.unsplash.com/photo-1543466835-00a7907e7f6b?auto=format&fit=crop&w=600&q=60" alt="amor por pets">
+          <img src="../uploads/cachorro_rua1.png" alt="amor por pets">
         </div>
         <div class="card-content">
           <h3>Nesse exato momento,</h3>
@@ -116,7 +64,7 @@ session_start();
 
       <article class="card">
         <div class="card-ill">
-          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=600&q=60" alt="recompensa">
+          <img src="../uploads/cachorro_rua2.png" alt="recompensa">
         </div>
         <div class="card-content">
           <h3>E não há recompensa maior</h3>
@@ -126,7 +74,7 @@ session_start();
 
       <article class="card">
         <div class="card-ill">
-          <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=600&q=60" alt="mudar destino">
+          <img src="../uploads/cachorro_rua3.png" alt="mudar destino">
         </div>
         <div class="card-content">
           <h3>Pensando bem, a pergunta é outra:</h3>
@@ -134,22 +82,26 @@ session_start();
         </div>
       </article>
     </div>
-
+<br><br>
     <div class="center">
       <a href="pets.php" class="btn btn-primary large">Encontrar meu novo amigo</a>
     </div>
   </section>
 
+
+  <!-- SOBRE -->
   <section id="about" class="about">
     <div class="container">
       <h2>Sobre o projeto</h2>
       <p class="lead">Somos uma plataforma que conecta abrigos e pessoas dispostas a adotar. Verificamos e cuidamos dos animais antes de colocá-los para adoção e oferecemos suporte no pós-adoção.</p>
       <div class="center">
-        <a href="sobre.html" class="btn btn-ghost">Mais informações</a>
+        <a href="sobre.php" class="btn btn-ghost">Mais informações</a>
       </div>
     </div>
   </section>
 
+
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
@@ -171,7 +123,10 @@ session_start();
     </div>
   </footer>
 
+
+  <!-- Scripts -->
   <script>
+    // script para abrir/fechar dropdown do avatar (caso exista)
     (function(){
       const avatarBtn = document.getElementById('avatar-btn');
       const profileFloat = document.getElementById('profile-float');

@@ -32,8 +32,7 @@ $animal = $result->fetch_assoc();
 <body>
   <div class="animal-detalhes">
     <?php
-   $foto = !empty($row['foto']) ? "../" . htmlspecialchars($row['foto']) : "sem_foto.png";
-
+      $foto = !empty($animal['foto']) ? "../uploads/animais/" . htmlspecialchars($animal['foto']) : "sem_foto.png";
     ?>
     <img src="<?php echo $foto; ?>" alt="<?php echo htmlspecialchars($animal['nome']); ?>">
 
